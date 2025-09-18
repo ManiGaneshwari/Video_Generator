@@ -1,0 +1,105 @@
+# Video Configuration
+video:
+  resolution: "1080p"  # Options: "1080p", "720p"
+  scaling_method: "crop"  # Options: "fit", "crop"
+  fps: 24
+  codec: "libx264"
+  audio_codec: "aac"
+  force_16_9: true
+
+# Text Settings
+text:
+  enabled: true
+  mode: "auto"  # Options: "auto", "single", "per_image", "from_file"
+  font_size: 30  # Base font size - will be used exactly if auto_scale is false
+  color: "white"
+  stroke_color: "black"
+  stroke_width: 4  # Increased stroke width for better visibility
+  position: "center"  # Options: "center", "top", "bottom", "left", "right", 
+                      # "top-left", "top-right", "bottom-left", "bottom-right"
+                      # or [x, y] coordinates like [100, 200]
+  
+  # Font scaling settings
+  scaling:
+    auto_scale: false  # Set to false to use exact font_size, true for automatic scaling
+    min_font_size: 30  # Minimum font size when auto-scaling
+    max_font_size: 500  # Maximum font size when auto-scaling
+    scale_factor: 0.85  # How aggressively to scale down (0.5 = aggressive, 0.9 = gentle)
+  
+  # Script optimization settings
+  optimization:
+    enabled: true  # Enable smart script distribution
+    max_chars_per_slide: 500  # Maximum characters per slide
+    min_words_per_slide: 5    # Minimum words per slide
+    prefer_sentence_breaks: true  # Try to break at sentence boundaries
+    
+  # Animation Settings
+  animation:
+    type: "fade_in"  # Options: fade_in, fade_in_out, slide_from_left, slide_from_right, 
+                     # slide_from_top, slide_from_bottom, zoom_in, zoom_out, bounce_in, 
+                     # pulse, rotate_in, none
+    duration: 1.5
+  
+  # Sequential text animation (lines appear one after another)
+  sequential:
+    enabled: true  # Enable line-by-line text reveals
+    line_delay: 1.5  # Seconds between each line appearing
+    line_duration: "auto"  # How long each line stays visible ("auto" or seconds)
+    animation: "fade_in"  # Animation for each line: fade_in, slide_from_left, typewriter, zoom_in
+    animation_duration: 0.8  # Duration of each line's entrance animation
+    stagger: true  # Keep previous lines visible when new ones appear
+  
+  # Default text for single mode
+  default_text: ""
+  
+  # Font paths (system-specific, will fallback to defaults if not found)
+  fonts:
+    - "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
+    - "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+    - "/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf"
+    - "/System/Library/Fonts/Helvetica.ttc"  # macOS
+    - "C:/Windows/Fonts/arial.ttf"  # Windows
+
+# Audio Settings
+audio:
+  generate_from_text: true  # If true, will use TTS instead of uploaded audio
+  tts:
+    language: "en"
+    slow: false
+  
+  # Audio-slide synchronization settings
+  sync:
+    enabled: true  # Enable audio-slide synchronization
+    mode: "auto"    # Options: "auto", "manual", "beat_detection"
+    
+    # Manual sync - specify exact timestamps for slide transitions
+    timestamps: []  # Example: [0, 15.5, 32.2, 48.7] - in seconds
+    
+    # Auto sync settings
+    auto:
+      silence_threshold: -40  # dB - silence level to detect pauses
+      min_slide_duration: 3   # Minimum seconds per slide
+      max_slide_duration: 15  # Maximum seconds per slide
+      
+    # Beat detection sync (experimental)
+    beat_detection:
+      tempo_range: [60, 180]  # BPM range to look for
+      slides_per_beat: 4      # How many beats per slide transition
+    
+# Image Settings
+image:
+  crossfade_duration: "auto"  # "auto" or specific duration in seconds
+  supported_formats: [".jpg", ".jpeg", ".png", ".bmp", ".tiff"]
+
+# Paths
+paths:
+  input_text: "data/input.txt"
+  images_dir: "data/images"
+  output_dir: "data/output"
+  audio_input: null  # Will be set dynamically
+  
+# Logging
+logging:
+  level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR
+  file: "logs/app.log"
+  console: true
